@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package raft;
+
+// ---- Leader election messages ----
+message RequestVoteRequest {
+  int32 term = 1;
+  int32 candidate_id = 2;
+}
+
+message RequestVoteResponse {
+  int32 term = 1;
+  bool vote_granted = 2;
+}
+
+// ---- Log replication messages ----
+message LogEntry {
+  int32 index = 1;
+  int32 term = 2;
+  string operation = 3; // simplified "command"
+}
+
+message AppendEntriesRequest {
+  int32 term = 1;
+  int32 leader_id = 2;
+  repeated LogEntry entries = 3;  // entire log
+  int32 commit_index = 4;         // c: most recently committed index on leader
+}
+
+message AppendEntriesResponse {
+  int32 term = 1;
+  bool success = 2;
+}
+
+// ---- Client → leader (via forwarding) ----
+message ClientOpRequest {
+  int32 source_id = 1;   // which node is sending/forwarding
+  string operation = 2;  // operation o
+}
+
+message ClientOpResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+service RaftService {
+  rpc RequestVote(RequestVoteRequest) returns (RequestVoteResponse);
+  rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
+  rpc ClientRequest(ClientOpRequest) returns (ClientOpResponse);
+}

@@ -9,4 +9,4 @@ COPY src/ ./src
 # COPY ../protos/ ./protos 
 EXPOSE 8080
 
-CMD ["python", "-m", "src.gateway_server"]
+CMD ["python", "-u", "-m", "src.gateway_server"]

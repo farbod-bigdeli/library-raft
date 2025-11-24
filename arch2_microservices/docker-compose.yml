@@ -103,6 +103,76 @@ services:
     environment:
       DATABASE_URL: "postgresql+psycopg2://book_service_user:strong_password@book_db:5432/book_service_db"
       BOOK_SERVICE_PORT: 50053
+      NODE_ID: 1
+    depends_on:
+      book_db:
+        condition: service_healthy
+
+    networks:
+      - library_network
+
+  book_service_2:
+    build:
+      context: ./book_service
+      dockerfile: Dockerfile.book
+    ports:
+      - "50054:50054"
+    environment:
+      DATABASE_URL: "postgresql+psycopg2://book_service_user:strong_password@book_db:5432/book_service_db"
+      BOOK_SERVICE_PORT: 50054
+      NODE_ID: 2
+    depends_on:
+      book_db:
+        condition: service_healthy
+
+    networks:
+      - library_network
+
+  book_service_3:
+    build:
+      context: ./book_service
+      dockerfile: Dockerfile.book
+    ports:
+      - "50056:50056"
+    environment:
+      DATABASE_URL: "postgresql+psycopg2://book_service_user:strong_password@book_db:5432/book_service_db"
+      BOOK_SERVICE_PORT: 50056
+      NODE_ID: 3
+    depends_on:
+      book_db:
+        condition: service_healthy
+
+    networks:
+      - library_network
+
+  book_service_4:
+    build:
+      context: ./book_service
+      dockerfile: Dockerfile.book
+    ports:
+      - "50057:50057"
+    environment:
+      DATABASE_URL: "postgresql+psycopg2://book_service_user:strong_password@book_db:5432/book_service_db"
+      BOOK_SERVICE_PORT: 50057
+      NODE_ID: 4
+    depends_on:
+      book_db:
+        condition: service_healthy
+
+    networks:
+      - library_network
+
+
+  book_service_5:
+    build:
+      context: ./book_service
+      dockerfile: Dockerfile.book
+    ports:
+      - "50058:50058"
+    environment:
+      DATABASE_URL: "postgresql+psycopg2://book_service_user:strong_password@book_db:5432/book_service_db"
+      BOOK_SERVICE_PORT: 50058
+      NODE_ID: 5
     depends_on:
       book_db:
         condition: service_healthy
