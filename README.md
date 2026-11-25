@@ -4,6 +4,16 @@ A comprehensive library management system demonstrating two different architectu
 
 This project showcases the same application built with two distinct approaches, allowing you to compare and understand the trade-offs between monolithic and distributed architectures.
 
+
+## My contribution
+
+This was a team project. I implemented Raft consensus for the book service in the microservices version (`arch2_microservices/book_service/src/raft_node.py`, `protos/raft.proto`):
+
+- Leader election with randomized election timeouts (`RequestVote`)
+- Log replication and heartbeats from the leader (`AppendEntries`)
+- Client writes routed through the leader and applied once committed (`ClientRequest`)
+- A five-node book-service cluster in `docker-compose.yml`
+
 ## 🏗️ Architecture Implementations
 
 ### [Architecture 1: Layered (3-Tier)]
